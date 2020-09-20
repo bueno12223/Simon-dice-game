@@ -28,3 +28,4 @@ class juego {
 function empezarJuego (){   
 
 window.juego = new juego(); } 
+var x
