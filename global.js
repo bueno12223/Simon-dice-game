@@ -12,7 +12,6 @@ class juego {
    }
    iniciar(){
       btnEmpezar.classList.add("hide");
-      console.log("holaaa!")
       this.nivel = 1;
       this.colores = {
          celeste,
@@ -27,6 +26,7 @@ class juego {
    }
    siguienteNivel(){
       this.iluminarSecuencia()
+      this.agregarEventosClick()
    }
    transformar(numero){
       switch (numero){
@@ -56,8 +56,19 @@ class juego {
    apagarColor(color){
       this.colores[color].classList.remove("light");
    }
+   elegirColor(ev){
+      console.log(ev)
+
+   }
+
+   agregarEventosClick(){
+      this.colores.celeste.addEventListener("click",elegirColor);
+      this.colores.verde.addEventListener("click", elegirColor);
+      this.colores.violeta.addEventListener("click", elegirColor);
+      this.colores.naranja.addEventListener("click", elegirColor);
+   } 
 
 }
-function empezarJuego (){   
+function empezarJuego(){   
 
 window.juego = new juego(); } 
