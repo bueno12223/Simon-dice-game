@@ -12,7 +12,7 @@ class juego {
    }
    iniciar(){
       btnEmpezar.classList.add("hide");
-      this.nivel = 1;
+      this.nivel = 10;
       this.colores = {
          celeste,
          violeta,
@@ -35,7 +35,7 @@ class juego {
          case 1:
          return "violeta"
          case 2:
-         return "Naranja"
+         return "naranja"
          case 3:
          return "verde"
       }
@@ -56,17 +56,18 @@ class juego {
    apagarColor(color){
       this.colores[color].classList.remove("light");
    }
-   elegirColor(ev){
-      console.log(ev)
-
-   }
+ 
 
    agregarEventosClick(){
-      this.colores.celeste.addEventListener("click",elegirColor);
-      this.colores.verde.addEventListener("click", elegirColor);
-      this.colores.violeta.addEventListener("click", elegirColor);
-      this.colores.naranja.addEventListener("click", elegirColor);
+      this.colores.celeste.addEventListener("click",this.elegirColor.bind(this));
+      this.colores.verde.addEventListener("click", this.elegirColor);
+      this.colores.violeta.addEventListener("click", this.elegirColor);
+      this.colores.naranja.addEventListener("click", this.elegirColor);
    } 
+   elegirColor(ev){
+      console.log(this)
+
+   }
 
 }
 function empezarJuego(){   
