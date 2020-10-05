@@ -11,6 +11,7 @@ class juego {
       this.siguienteNivel()
    }
    iniciar(){
+      this.elegirColor = this.elegirColor.bind(this)
       btnEmpezar.classList.add("hide");
       this.nivel = 10;
       this.colores = {
@@ -25,6 +26,7 @@ class juego {
       this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4 ))
    }
    siguienteNivel(){
+      this.subNivel = 0
       this.iluminarSecuencia()
       this.agregarEventosClick()
    }
@@ -38,6 +40,19 @@ class juego {
          return "naranja"
          case 3:
          return "verde"
+      }
+
+   }
+   transformar2(color){
+      switch (color){
+         case "celeste":
+         return 0
+         case "violeta":
+         return 1
+         case "naranja":
+         return 2
+         case "verde":
+         return 3
       }
 
    }
@@ -59,13 +74,17 @@ class juego {
  
 
    agregarEventosClick(){
-      this.colores.celeste.addEventListener("click",this.elegirColor.bind(this));
+      this.colores.celeste.addEventListener("click",this.elegirColor);
       this.colores.verde.addEventListener("click", this.elegirColor);
       this.colores.violeta.addEventListener("click", this.elegirColor);
       this.colores.naranja.addEventListener("click", this.elegirColor);
    } 
    elegirColor(ev){
-      console.log(this)
+      const nombreColor = ev.target.dataset.color
+      const numeroColor = this.transformar2(nombreColor)
+      this.iluminarColor(nombreColor)
+   
+
 
    }
 
