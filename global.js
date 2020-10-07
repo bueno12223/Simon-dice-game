@@ -3,17 +3,22 @@ const celeste = document.getElementById("celeste");
 const violeta = document.getElementById("violeta");
 const naranja = document.getElementById("naranja");
 const verde = document.getElementById("verde");
-
+const UltimoNivel = 10;
+swal("hola!!")
 class juego {
    constructor(){
+      
       this.iniciar()
       this.generarSecuencia()
-      this.siguienteNivel()
+      setTimeout(() => {
+         this.siguienteNivel()  
+      }, 500);
+      
    }
    iniciar(){
       this.elegirColor = this.elegirColor.bind(this)
       btnEmpezar.classList.add("hide");
-      this.nivel = 10;
+      this.nivel = 1;
       this.colores = {
          celeste,
          violeta,
@@ -23,7 +28,7 @@ class juego {
 
    }
    generarSecuencia(){
-      this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4 ))
+      this.secuencia = new Array(UltimoNivel).fill(0).map(n => Math.floor(Math.random() * 4 ))
    }
    siguienteNivel(){
       this.subNivel = 0
@@ -79,10 +84,35 @@ class juego {
       this.colores.violeta.addEventListener("click", this.elegirColor);
       this.colores.naranja.addEventListener("click", this.elegirColor);
    } 
+
+   eliminarEventosClick(){
+      this.colores.celeste.removeEventListener("click",this.elegirColor);
+      this.colores.verde.removeEventListener("click", this.elegirColor);
+      this.colores.violeta.removeEventListener("click", this.elegirColor);
+      this.colores.naranja.removeEventListener("click", this.elegirColor);
+   } 
+
    elegirColor(ev){
       const nombreColor = ev.target.dataset.color
       const numeroColor = this.transformar2(nombreColor)
       this.iluminarColor(nombreColor)
+      if (numeroColor === this.secuencia[this.subNivel]){
+         this.subNivel++
+         if (this.subNivel === this.nivel){
+            this.nivel++
+            this.eliminarEventosClick()
+            if (this.nivel === (UltimoNivel +1)){
+               // GANO?!!
+
+            }else {
+               setTimeout(this.siguienteNivel.bind(this), 1500);
+            }
+
+         }else {
+            // perdió
+         }
+      }
+
    
 
 
