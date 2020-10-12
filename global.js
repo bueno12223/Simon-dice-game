@@ -4,7 +4,6 @@ const violeta = document.getElementById("violeta");
 const naranja = document.getElementById("naranja");
 const verde = document.getElementById("verde");
 const UltimoNivel = 10;
-swal("hola!!")
 class juego {
    constructor(){
       
@@ -17,8 +16,9 @@ class juego {
    }
    iniciar(){
       this.elegirColor = this.elegirColor.bind(this)
+      this.toggleBtnEmpezar()
       btnEmpezar.classList.add("hide");
-      this.nivel = 1;
+      this.nivel = 3;
       this.colores = {
          celeste,
          violeta,
@@ -27,6 +27,14 @@ class juego {
       };
 
    }
+   toggleBtnEmpezar(){
+      if (btnEmpezar.classList.contains("hide") ){
+         btnEmpezar.classList.remove("hide")
+      }else {
+         btnEmpezar.classList.add("hide")
+      }
+   }
+
    generarSecuencia(){
       this.secuencia = new Array(UltimoNivel).fill(0).map(n => Math.floor(Math.random() * 4 ))
    }
@@ -102,23 +110,29 @@ class juego {
             this.nivel++
             this.eliminarEventosClick()
             if (this.nivel === (UltimoNivel +1)){
-               // GANO?!!
+               this.gano()
 
             }else {
                setTimeout(this.siguienteNivel.bind(this), 1500);
             }
 
          }else {
-            // perdió
+            this.perdio()
          }
       }
-
-   
-
-
    }
+gano(){
+   swal("jesus","ganaste el juego!!","succses")
+   .then(this.iniciar.bind(this));}
 
+   perdio(){
+      swal("jesus","perdiste :(","succses")
+      .then(() => {
+         this.eliminarEventosClick()
+         this.iniciar().bind(this)});
 }
+}
+
 function empezarJuego(){   
 
 window.juego = new juego(); } 
